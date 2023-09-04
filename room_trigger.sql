@@ -25,3 +25,13 @@ UPDATE room SET name = 'luca'
 where id = 3;
 SELECT * from guest;
 select * from logi;
+
+CREATE TRIGGER roomLisamine
+ON room
+FOR INSERT
+AS
+INSERT INTO logi(kuupaev, kasutaja, andmed, tegevus)
+SELECT GETDATE(), USER, 
+CONCAT(inserted.number, ', ', inserted.name, ', ', inserted.status, ', ', inserted.smoke),
+'room on lisatud'
+FROM inserted;
