@@ -89,13 +89,14 @@ CREATE TABLE logi (
     kasutaja VARCHAR(100)
 );
 ------------------roomLisamine-----------------------
-INSERT INTO logi(kuupaev,andmed,kasutaja)
+INSERT INTO logi (kuupaev, andmed, kasutaja)
 SELECT NOW(),
-CONCAT('UUED ANDMED- ',NEW.number,', ',NEW.name,', ',NEW.status,', ',NEW.smoke,', ',t.room_type),
-USER()
+       CONCAT('UUED ANDMED- ', r.number, ', ', r.name, ', ', r.status, ', ', r.smoke, ', ', t.description),
+       USER()
 FROM room r
-INNER JOIN room_type t
-ON r.room_type_id=t.room_type_id
-WHERE r.roomID=NEW.roomID
+INNER JOIN room_type t ON r.room_type_id = t.id
+WHERE r.roomID = NEW.roomID
+
+select * from logi; 
 
 
