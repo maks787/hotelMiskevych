@@ -61,3 +61,41 @@ END;
 --Проверка-----------------------------------
 insert into room(number,name,status,smoke,room_type_id)
 VALUES('seitse','Artjom','OK',1,1);
+
+
+
+
+----------XAMPP------------------------
+CREATE TABLE room_type (
+    id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    description VARCHAR(80),
+    max_capacity INT
+);
+
+CREATE TABLE room (
+    roomID INT PRIMARY KEY AUTO_INCREMENT,
+    number VARCHAR(10),
+    name VARCHAR(40),
+    status VARCHAR(10),
+    smoke TINYINT(1),
+    room_type_id INT,
+    FOREIGN KEY (room_type_id) REFERENCES room_type(id)
+);
+
+CREATE TABLE logi (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    andmed TEXT,
+    kuupaev DATETIME,
+    kasutaja VARCHAR(100)
+);
+------------------roomLisamine-----------------------
+INSERT INTO logi(kuupaev,andmed,kasutaja)
+SELECT NOW(),
+CONCAT('UUED ANDMED- ',NEW.number,', ',NEW.name,', ',NEW.status,', ',NEW.smoke,', ',t.room_type),
+USER()
+FROM room r
+INNER JOIN room_type t
+ON r.room_type_id=t.room_type_id
+WHERE r.roomID=NEW.roomID
+
+
