@@ -98,5 +98,16 @@ INNER JOIN room_type t ON r.room_type_id = t.id
 WHERE r.roomID = NEW.roomID
 
 select * from logi; 
+--------------------------roomUuendamine----------------------
+INSERT INTO logi (kuupaev, andmed, kasutaja)
+SELECT NOW(),
+       CONCAT('VANAD ANDMED -: ', OLD.number, ', ', OLD.name, ', ', OLD.status, ', ', OLD.smoke, ', ', t1.description,
+              'UUED ANDMED -: ', NEW.number, ', ', NEW.name, ', ', NEW.status, ', ', NEW.smoke, ', ', t2.description),
+       USER()
+FROM room r
+INNER JOIN room_type t1 ON OLD.room_type_id = t1.id
+INNER JOIN room_type t2 ON NEW.room_type_id = t2.id
+WHERE r.roomID = NEW.roomID
+
 
 
