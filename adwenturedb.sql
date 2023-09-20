@@ -1,4 +1,4 @@
-
+1 fail funktsiooni loomine, 2 fail- Funktsiooniga seotud tähtsad kontseptsioonid. 3 fail- Ajutised tabelid. 4 fail-Ineksid serveris 
 create function fn_ILTVF_GetEmployees()
 Returns table
 AS
